@@ -1,0 +1,149 @@
+<div>
+  <h2 id="page-heading" data-cy="AssessmentHeading">
+    <span acdeTranslate="acdeApp.assessment.home.title">Assessments</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span acdeTranslate="acdeApp.assessment.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-assessment"
+        [routerLink]="['/assessment/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span acdeTranslate="acdeApp.assessment.home.createLabel"> Crear nuevo Assessment </span>
+      </button>
+    </div>
+  </h2>
+
+  <acde-alert-error></acde-alert-error>
+
+  <acde-alert></acde-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="assessments?.length === 0">
+    <span acdeTranslate="acdeApp.assessment.home.notFound">Ningún Assessments encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="assessments && assessments.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr acdeSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" acdeSortBy="id">
+            <div class="d-flex">
+              <span acdeTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="assessmentNumber">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.assessment.assessmentNumber">Assessment Number</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="assessmentType">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.assessment.assessmentType">Assessment Type</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="dateassessment">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.assessment.dateassessment">Dateassessment</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="assessmentTotal">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.assessment.assessmentTotal">Assessment Total</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="evaluator.id">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.assessment.evaluator">Evaluator</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="employee.id">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.assessment.employee">Employee</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let assessment of assessments; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/assessment', assessment.id, 'view']">{{ assessment.id }}</a>
+          </td>
+          <td>{{ assessment.assessmentNumber }}</td>
+          <td>{{ assessment.assessmentType }}</td>
+          <td>{{ assessment.dateassessment | formatMediumDate }}</td>
+          <td>{{ assessment.assessmentTotal }}</td>
+          <td>
+            <div *ngIf="assessment.evaluator">
+              <a [routerLink]="['/evaluator', assessment.evaluator.id, 'view']">{{ assessment.evaluator.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="assessment.employee">
+              <a [routerLink]="['/employee', assessment.employee.id, 'view']">{{ assessment.employee.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/assessment', assessment.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" acdeTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/assessment', assessment.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" acdeTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(assessment)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" acdeTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="assessments && assessments.length > 0">
+    <div class="d-flex justify-content-center">
+      <acde-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></acde-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,166 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="acde-observation-assessment-heading"
+        data-cy="ObservationAssessmentCreateUpdateHeading"
+        acdeTranslate="acdeApp.observationAssessment.home.createOrEditLabel"
+      >
+        Crear o editar Observation Assessment
+      </h2>
+
+      <div>
+        <acde-alert-error></acde-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" acdeTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.observationAssessment.observationGeneral" for="field_observationGeneral"
+            >Observation General</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="observationGeneral"
+            id="field_observationGeneral"
+            data-cy="observationGeneral"
+            formControlName="observationGeneral"
+          />
+          <div
+            *ngIf="
+              editForm.get('observationGeneral')!.invalid &&
+              (editForm.get('observationGeneral')!.dirty || editForm.get('observationGeneral')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('observationGeneral')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('observationGeneral')?.errors?.maxlength"
+              acdeTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 250 }"
+            >
+              Este campo no puede superar más de 250 caracteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label
+            class="form-label"
+            acdeTranslate="acdeApp.observationAssessment.appropriationEvaluation"
+            for="field_appropriationEvaluation"
+            >Appropriation Evaluation</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="appropriationEvaluation"
+            id="field_appropriationEvaluation"
+            data-cy="appropriationEvaluation"
+            formControlName="appropriationEvaluation"
+          />
+          <div
+            *ngIf="
+              editForm.get('appropriationEvaluation')!.invalid &&
+              (editForm.get('appropriationEvaluation')!.dirty || editForm.get('appropriationEvaluation')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('appropriationEvaluation')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('appropriationEvaluation')?.errors?.maxlength"
+              acdeTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 250 }"
+            >
+              Este campo no puede superar más de 250 caracteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.observationAssessment.observationtraining" for="field_observationtraining"
+            >Observationtraining</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="observationtraining"
+            id="field_observationtraining"
+            data-cy="observationtraining"
+            formControlName="observationtraining"
+          />
+          <div
+            *ngIf="
+              editForm.get('observationtraining')!.invalid &&
+              (editForm.get('observationtraining')!.dirty || editForm.get('observationtraining')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('observationtraining')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('observationtraining')?.errors?.maxlength"
+              acdeTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 250 }"
+            >
+              Este campo no puede superar más de 250 caracteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.observationAssessment.assessment" for="field_assessment">Assessment</label>
+          <select
+            class="form-control"
+            id="field_assessment"
+            data-cy="assessment"
+            name="assessment"
+            formControlName="assessment"
+            [compareWith]="compareAssessment"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="assessmentOption" *ngFor="let assessmentOption of assessmentsSharedCollection">
+              {{ assessmentOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span acdeTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span acdeTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

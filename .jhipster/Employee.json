@@ -1,0 +1,60 @@
+{
+  "applications": ["acde"],
+  "changelogDate": "20221030025528",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "employee",
+  "fields": [
+    {
+      "fieldName": "status",
+      "fieldType": "State",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "TRAINED (Capacitado),NOTTRAINED (Nocapacitado)"
+    },
+    {
+      "fieldName": "charge",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "40"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Employee",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "assessment",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "assessment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "training",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "training",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

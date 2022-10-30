@@ -1,0 +1,140 @@
+<div>
+  <h2 id="page-heading" data-cy="EvaluatorHeading">
+    <span acdeTranslate="acdeApp.evaluator.home.title">Evaluators</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span acdeTranslate="acdeApp.evaluator.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-evaluator"
+        [routerLink]="['/evaluator/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span acdeTranslate="acdeApp.evaluator.home.createLabel"> Crear nuevo Evaluator </span>
+      </button>
+    </div>
+  </h2>
+
+  <acde-alert-error></acde-alert-error>
+
+  <acde-alert></acde-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="evaluators?.length === 0">
+    <span acdeTranslate="acdeApp.evaluator.home.notFound">Ningún Evaluators encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="evaluators && evaluators.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr acdeSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" acdeSortBy="id">
+            <div class="d-flex">
+              <span acdeTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="phoneNumber">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.evaluator.phoneNumber">Phone Number</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="email">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.evaluator.email">Email</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="address">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.evaluator.address">Address</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="user.login">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.evaluator.user">User</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="documentType.documentName">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.evaluator.documentType">Document Type</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let evaluator of evaluators; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/evaluator', evaluator.id, 'view']">{{ evaluator.id }}</a>
+          </td>
+          <td>{{ evaluator.phoneNumber }}</td>
+          <td>{{ evaluator.email }}</td>
+          <td>{{ evaluator.address }}</td>
+          <td>
+            {{ evaluator.user?.login }}
+          </td>
+          <td>
+            <div *ngIf="evaluator.documentType">
+              <a [routerLink]="['/document-type', evaluator.documentType.id, 'view']">{{ evaluator.documentType.documentName }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/evaluator', evaluator.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" acdeTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/evaluator', evaluator.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" acdeTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(evaluator)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" acdeTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="evaluators && evaluators.length > 0">
+    <div class="d-flex justify-content-center">
+      <acde-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></acde-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

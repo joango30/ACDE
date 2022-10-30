@@ -1,0 +1,56 @@
+{
+  "applications": ["acde"],
+  "changelogDate": "20221030025628",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "assessment",
+  "fields": [
+    {
+      "fieldName": "assessmentNumber",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "assessmentType",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "dateassessment",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "assessmentTotal",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Assessment",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "observationAssessment",
+      "otherEntityRelationshipName": "assessment",
+      "relationshipName": "observationAssessment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "evaluator",
+      "otherEntityRelationshipName": "assessment",
+      "relationshipName": "evaluator",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "assessment",
+      "relationshipName": "employee",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

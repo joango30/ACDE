@@ -1,0 +1,91 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="acde-document-type-heading"
+        data-cy="DocumentTypeCreateUpdateHeading"
+        acdeTranslate="acdeApp.documentType.home.createOrEditLabel"
+      >
+        Crear o editar Document Type
+      </h2>
+
+      <div>
+        <acde-alert-error></acde-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" acdeTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.documentType.initials" for="field_initials">Initials</label>
+          <input type="text" class="form-control" name="initials" id="field_initials" data-cy="initials" formControlName="initials" />
+          <div *ngIf="editForm.get('initials')!.invalid && (editForm.get('initials')!.dirty || editForm.get('initials')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('initials')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('initials')?.errors?.maxlength"
+              acdeTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 10 }"
+            >
+              Este campo no puede superar más de 10 caracteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.documentType.documentName" for="field_documentName">Document Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="documentName"
+            id="field_documentName"
+            data-cy="documentName"
+            formControlName="documentName"
+          />
+          <div
+            *ngIf="editForm.get('documentName')!.invalid && (editForm.get('documentName')!.dirty || editForm.get('documentName')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('documentName')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('documentName')?.errors?.maxlength"
+              acdeTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 20 }"
+            >
+              Este campo no puede superar más de 20 caracteres.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span acdeTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span acdeTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

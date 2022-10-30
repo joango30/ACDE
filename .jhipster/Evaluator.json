@@ -1,0 +1,62 @@
+{
+  "applications": ["acde"],
+  "changelogDate": "20221030025428",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "evaluator",
+  "fields": [
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "20"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Evaluator",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "assessment",
+      "otherEntityRelationshipName": "evaluator",
+      "relationshipName": "assessment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "training",
+      "otherEntityRelationshipName": "evaluator",
+      "relationshipName": "training",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "documentName",
+      "otherEntityName": "documentType",
+      "otherEntityRelationshipName": "evaluator",
+      "relationshipName": "documentType",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

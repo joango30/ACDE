@@ -1,0 +1,24 @@
+<form *ngIf="assessment" name="deleteForm" (ngSubmit)="confirmDelete(assessment.id!)">
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="assessmentDeleteDialogHeading" acdeTranslate="entity.delete.title">Confirmar operación de borrado</h4>
+
+    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <acde-alert-error></acde-alert-error>
+    <p id="acde-delete-assessment-heading" acdeTranslate="acdeApp.assessment.delete.question" [translateValues]="{ id: assessment.id }">
+      ¿Seguro que quiere eliminar Assessment {{ assessment.id }}?
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span acdeTranslate="entity.action.cancel">Cancelar</span>
+    </button>
+
+    <button id="acde-confirm-delete-assessment" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+      <fa-icon icon="times"></fa-icon>&nbsp;<span acdeTranslate="entity.action.delete">Eliminar</span>
+    </button>
+  </div>
+</form>

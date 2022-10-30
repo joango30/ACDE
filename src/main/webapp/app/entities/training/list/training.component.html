@@ -1,0 +1,145 @@
+<div>
+  <h2 id="page-heading" data-cy="TrainingHeading">
+    <span acdeTranslate="acdeApp.training.home.title">Trainings</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span acdeTranslate="acdeApp.training.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-training"
+        [routerLink]="['/training/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span acdeTranslate="acdeApp.training.home.createLabel"> Crear nuevo Training </span>
+      </button>
+    </div>
+  </h2>
+
+  <acde-alert-error></acde-alert-error>
+
+  <acde-alert></acde-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="trainings?.length === 0">
+    <span acdeTranslate="acdeApp.training.home.notFound">Ningún Trainings encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="trainings && trainings.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr acdeSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" acdeSortBy="id">
+            <div class="d-flex">
+              <span acdeTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="trainigNumber">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.training.trainigNumber">Trainig Number</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="startDate">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.training.startDate">Start Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="endDate">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.training.endDate">End Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="trainingName">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.training.trainingName">Training Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="statusName">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.training.statusName">Status Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" acdeSortBy="evaluator.id">
+            <div class="d-flex">
+              <span acdeTranslate="acdeApp.training.evaluator">Evaluator</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let training of trainings; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/training', training.id, 'view']">{{ training.id }}</a>
+          </td>
+          <td>{{ training.trainigNumber }}</td>
+          <td>{{ training.startDate | formatMediumDate }}</td>
+          <td>{{ training.endDate | formatMediumDate }}</td>
+          <td>{{ training.trainingName }}</td>
+          <td>{{ training.statusName }}</td>
+          <td>
+            <div *ngIf="training.evaluator">
+              <a [routerLink]="['/evaluator', training.evaluator.id, 'view']">{{ training.evaluator.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/training', training.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" acdeTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/training', training.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" acdeTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(training)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" acdeTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="trainings && trainings.length > 0">
+    <div class="d-flex justify-content-center">
+      <acde-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></acde-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

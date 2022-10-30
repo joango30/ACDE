@@ -1,0 +1,41 @@
+{
+  "applications": ["acde"],
+  "changelogDate": "20221030025828",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "observation_assessment",
+  "fields": [
+    {
+      "fieldName": "observationGeneral",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "250"
+    },
+    {
+      "fieldName": "appropriationEvaluation",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "250"
+    },
+    {
+      "fieldName": "observationtraining",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "250"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ObservationAssessment",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "assessment",
+      "otherEntityRelationshipName": "observationAssessment",
+      "relationshipName": "assessment",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

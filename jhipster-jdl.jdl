@@ -1,0 +1,88 @@
+application {
+    config {
+        baseName acde
+        applicationType monolith
+        packageName co.edu.acde
+        authenticationType jwt
+        devDatabaseType postgresql
+        prodDatabaseType postgresql
+        cacheProvider no
+        buildTool maven
+        clientFramework angularX
+        enableTranslation true
+        nativeLanguage es
+        languages [en, es]
+        websocket false 
+        jhiPrefix acde
+        reactive false
+        serverPort 8080
+        searchEngine false
+        clientTheme cyborg
+        clientThemeVariant primary
+    }
+    entities *
+}
+  enum State{
+  TRAINED(Capacitado)
+  NOTTRAINED (Nocapacitado)
+}
+
+entity DocumentType {
+	initials String required maxlength(10) 
+    documentName String required maxlength(20) 
+}
+entity Evaluator{
+    phoneNumber  String required maxlength(50)
+    email String required maxlength(100)
+    address String maxlength(20) 
+}
+entity Employee {
+    status State required
+    charge String required maxlength(40) 
+    email String required  maxlength(50)
+    phoneNumber  String required maxlength(50)
+}
+
+entity Assessment {
+    assessmentNumber Integer required
+    assessmentType String required maxlength(50)
+    dateassessment LocalDate  required
+    assessmentTotal Integer required
+}
+
+entity Training {
+	trainigNumber String required maxlength(100)
+    startDate LocalDate required
+    endDate LocalDate required
+    trainingName String required maxlength(100)
+    statusName String required maxlength(40)
+}
+
+entity ObservationAssessment {
+ObservationGeneral String required maxlength(250)
+AppropriationEvaluation String required maxlength(250)
+Observationtraining  String required maxlength(250)
+}
+relationship OneToMany {
+
+DocumentType to Evaluator {documentType(documentName)}
+Evaluator to Assessment {evaluator}
+Employee to Assessment {employee}
+Evaluator to Training
+Training to  Employee 
+Assessment to ObservationAssessment
+
+}
+
+relationship OneToOne { //derecha e manda la llave primaria al de la izquierda 
+	Evaluator{user(login) required } to User
+    Employee{user(login) } to User
+}
+  
+dto * with mapstruct
+service * with serviceImpl //SOLID
+paginate * with pagination
+
+
+
+

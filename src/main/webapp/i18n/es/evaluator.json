@@ -1,0 +1,30 @@
+{
+  "acdeApp": {
+    "evaluator": {
+      "home": {
+        "title": "Evaluators",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Evaluator",
+        "createOrEditLabel": "Crear o editar Evaluator",
+        "notFound": "Ningún Evaluators encontrado"
+      },
+      "created": "Un nuevo Evaluator ha sido creado con el identificador {{ param }}",
+      "updated": "Un Evaluator ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Evaluator ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Evaluator {{ id }}?"
+      },
+      "detail": {
+        "title": "Evaluator"
+      },
+      "id": "ID",
+      "phoneNumber": "Phone Number",
+      "email": "Email",
+      "address": "Address",
+      "user": "User",
+      "assessment": "Assessment",
+      "training": "Training",
+      "documentType": "Document Type"
+    }
+  }
+}

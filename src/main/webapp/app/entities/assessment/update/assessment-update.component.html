@@ -1,0 +1,197 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="acde-assessment-heading" data-cy="AssessmentCreateUpdateHeading" acdeTranslate="acdeApp.assessment.home.createOrEditLabel">
+        Crear o editar Assessment
+      </h2>
+
+      <div>
+        <acde-alert-error></acde-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" acdeTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.assessment.assessmentNumber" for="field_assessmentNumber"
+            >Assessment Number</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="assessmentNumber"
+            id="field_assessmentNumber"
+            data-cy="assessmentNumber"
+            formControlName="assessmentNumber"
+          />
+          <div
+            *ngIf="
+              editForm.get('assessmentNumber')!.invalid &&
+              (editForm.get('assessmentNumber')!.dirty || editForm.get('assessmentNumber')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('assessmentNumber')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('assessmentNumber')?.errors?.number"
+              acdeTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.assessment.assessmentType" for="field_assessmentType">Assessment Type</label>
+          <input
+            type="text"
+            class="form-control"
+            name="assessmentType"
+            id="field_assessmentType"
+            data-cy="assessmentType"
+            formControlName="assessmentType"
+          />
+          <div
+            *ngIf="
+              editForm.get('assessmentType')!.invalid && (editForm.get('assessmentType')!.dirty || editForm.get('assessmentType')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('assessmentType')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('assessmentType')?.errors?.maxlength"
+              acdeTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              Este campo no puede superar más de 50 caracteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.assessment.dateassessment" for="field_dateassessment">Dateassessment</label>
+          <div class="input-group">
+            <input
+              id="field_dateassessment"
+              data-cy="dateassessment"
+              type="text"
+              class="form-control"
+              name="dateassessment"
+              ngbDatepicker
+              #dateassessmentDp="ngbDatepicker"
+              formControlName="dateassessment"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateassessmentDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          <div
+            *ngIf="
+              editForm.get('dateassessment')!.invalid && (editForm.get('dateassessment')!.dirty || editForm.get('dateassessment')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('dateassessment')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.assessment.assessmentTotal" for="field_assessmentTotal">Assessment Total</label>
+          <input
+            type="number"
+            class="form-control"
+            name="assessmentTotal"
+            id="field_assessmentTotal"
+            data-cy="assessmentTotal"
+            formControlName="assessmentTotal"
+          />
+          <div
+            *ngIf="
+              editForm.get('assessmentTotal')!.invalid &&
+              (editForm.get('assessmentTotal')!.dirty || editForm.get('assessmentTotal')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('assessmentTotal')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('assessmentTotal')?.errors?.number"
+              acdeTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.assessment.evaluator" for="field_evaluator">Evaluator</label>
+          <select
+            class="form-control"
+            id="field_evaluator"
+            data-cy="evaluator"
+            name="evaluator"
+            formControlName="evaluator"
+            [compareWith]="compareEvaluator"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="evaluatorOption" *ngFor="let evaluatorOption of evaluatorsSharedCollection">{{ evaluatorOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.assessment.employee" for="field_employee">Employee</label>
+          <select
+            class="form-control"
+            id="field_employee"
+            data-cy="employee"
+            name="employee"
+            formControlName="employee"
+            [compareWith]="compareEmployee"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="employeeOption" *ngFor="let employeeOption of employeesSharedCollection">{{ employeeOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span acdeTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span acdeTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="training">
+      <h2 data-cy="trainingDetailsHeading"><span acdeTranslate="acdeApp.training.detail.title">Training</span></h2>
+
+      <hr />
+
+      <acde-alert-error></acde-alert-error>
+
+      <acde-alert></acde-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span acdeTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ training.id }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.training.trainigNumber">Trainig Number</span></dt>
+        <dd>
+          <span>{{ training.trainigNumber }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.training.startDate">Start Date</span></dt>
+        <dd>
+          <span>{{ training.startDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.training.endDate">End Date</span></dt>
+        <dd>
+          <span>{{ training.endDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.training.trainingName">Training Name</span></dt>
+        <dd>
+          <span>{{ training.trainingName }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.training.statusName">Status Name</span></dt>
+        <dd>
+          <span>{{ training.statusName }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.training.evaluator">Evaluator</span></dt>
+        <dd>
+          <div *ngIf="training.evaluator">
+            <a [routerLink]="['/evaluator', training.evaluator.id, 'view']">{{ training.evaluator.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span acdeTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/training', training.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span acdeTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

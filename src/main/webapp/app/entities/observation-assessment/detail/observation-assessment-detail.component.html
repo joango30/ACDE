@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="observationAssessment">
+      <h2 data-cy="observationAssessmentDetailsHeading">
+        <span acdeTranslate="acdeApp.observationAssessment.detail.title">Observation Assessment</span>
+      </h2>
+
+      <hr />
+
+      <acde-alert-error></acde-alert-error>
+
+      <acde-alert></acde-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span acdeTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ observationAssessment.id }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.observationAssessment.observationGeneral">Observation General</span></dt>
+        <dd>
+          <span>{{ observationAssessment.observationGeneral }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.observationAssessment.appropriationEvaluation">Appropriation Evaluation</span></dt>
+        <dd>
+          <span>{{ observationAssessment.appropriationEvaluation }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.observationAssessment.observationtraining">Observationtraining</span></dt>
+        <dd>
+          <span>{{ observationAssessment.observationtraining }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.observationAssessment.assessment">Assessment</span></dt>
+        <dd>
+          <div *ngIf="observationAssessment.assessment">
+            <a [routerLink]="['/assessment', observationAssessment.assessment.id, 'view']">{{ observationAssessment.assessment.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span acdeTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/observation-assessment', observationAssessment.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span acdeTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

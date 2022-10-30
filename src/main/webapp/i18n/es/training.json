@@ -1,0 +1,30 @@
+{
+  "acdeApp": {
+    "training": {
+      "home": {
+        "title": "Trainings",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Training",
+        "createOrEditLabel": "Crear o editar Training",
+        "notFound": "Ningún Trainings encontrado"
+      },
+      "created": "Un nuevo Training ha sido creado con el identificador {{ param }}",
+      "updated": "Un Training ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Training ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Training {{ id }}?"
+      },
+      "detail": {
+        "title": "Training"
+      },
+      "id": "ID",
+      "trainigNumber": "Trainig Number",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "trainingName": "Training Name",
+      "statusName": "Status Name",
+      "employee": "Employee",
+      "evaluator": "Evaluator"
+    }
+  }
+}

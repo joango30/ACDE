@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="evaluator">
+      <h2 data-cy="evaluatorDetailsHeading"><span acdeTranslate="acdeApp.evaluator.detail.title">Evaluator</span></h2>
+
+      <hr />
+
+      <acde-alert-error></acde-alert-error>
+
+      <acde-alert></acde-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span acdeTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ evaluator.id }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.evaluator.phoneNumber">Phone Number</span></dt>
+        <dd>
+          <span>{{ evaluator.phoneNumber }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.evaluator.email">Email</span></dt>
+        <dd>
+          <span>{{ evaluator.email }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.evaluator.address">Address</span></dt>
+        <dd>
+          <span>{{ evaluator.address }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.evaluator.user">User</span></dt>
+        <dd>
+          <span>{{ evaluator.user?.login }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.evaluator.documentType">Document Type</span></dt>
+        <dd>
+          <div *ngIf="evaluator.documentType">
+            <a [routerLink]="['/document-type', evaluator.documentType.id, 'view']">{{ evaluator.documentType.documentName }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span acdeTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/evaluator', evaluator.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span acdeTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

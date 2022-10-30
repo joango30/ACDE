@@ -1,0 +1,51 @@
+<div>
+  <h2>
+    <span id="metrics-page-heading" acdeTranslate="metrics.title" data-cy="metricsPageHeading">Métricas de aplicación</span>
+
+    <button class="btn btn-primary float-end" (click)="refresh()">
+      <fa-icon icon="sync"></fa-icon> <span acdeTranslate="metrics.refresh.button">Refrescar</span>
+    </button>
+  </h2>
+
+  <h3 acdeTranslate="metrics.jvm.title">Métricas de JVM</h3>
+
+  <div class="row" *ngIf="metrics && !updatingMetrics">
+    <acde-jvm-memory class="col-md-4" [updating]="updatingMetrics" [jvmMemoryMetrics]="metrics.jvm"></acde-jvm-memory>
+
+    <acde-jvm-threads class="col-md-4" [threads]="threads"></acde-jvm-threads>
+
+    <acde-metrics-system class="col-md-4" [updating]="updatingMetrics" [systemMetrics]="metrics.processMetrics"></acde-metrics-system>
+  </div>
+
+  <acde-metrics-garbagecollector
+    *ngIf="metrics && metricsKeyExists('garbageCollector')"
+    [updating]="updatingMetrics"
+    [garbageCollectorMetrics]="metrics.garbageCollector"
+  ></acde-metrics-garbagecollector>
+
+  <div class="well well-lg" *ngIf="updatingMetrics" acdeTranslate="metrics.updating">Actualizando...</div>
+
+  <acde-metrics-request
+    *ngIf="metrics && metricsKeyExists('http.server.requests')"
+    [updating]="updatingMetrics"
+    [requestMetrics]="metrics['http.server.requests']"
+  ></acde-metrics-request>
+
+  <acde-metrics-endpoints-requests
+    *ngIf="metrics && metricsKeyExists('services')"
+    [updating]="updatingMetrics"
+    [endpointsRequestsMetrics]="metrics.services"
+  ></acde-metrics-endpoints-requests>
+
+  <acde-metrics-cache
+    *ngIf="metrics && metricsKeyExists('cache')"
+    [updating]="updatingMetrics"
+    [cacheMetrics]="metrics.cache"
+  ></acde-metrics-cache>
+
+  <acde-metrics-datasource
+    *ngIf="metrics && metricsKeyExistsAndObjectNotEmpty('databases')"
+    [updating]="updatingMetrics"
+    [datasourceMetrics]="metrics.databases"
+  ></acde-metrics-datasource>
+</div>

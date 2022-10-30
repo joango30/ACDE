@@ -1,0 +1,27 @@
+{
+  "acdeApp": {
+    "observationAssessment": {
+      "home": {
+        "title": "Observation Assessments",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Observation Assessment",
+        "createOrEditLabel": "Create or edit a Observation Assessment",
+        "notFound": "No Observation Assessments found"
+      },
+      "created": "A new Observation Assessment is created with identifier {{ param }}",
+      "updated": "A Observation Assessment is updated with identifier {{ param }}",
+      "deleted": "A Observation Assessment is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Observation Assessment {{ id }}?"
+      },
+      "detail": {
+        "title": "Observation Assessment"
+      },
+      "id": "ID",
+      "observationGeneral": "Observation General",
+      "appropriationEvaluation": "Appropriation Evaluation",
+      "observationtraining": "Observationtraining",
+      "assessment": "Assessment"
+    }
+  }
+}

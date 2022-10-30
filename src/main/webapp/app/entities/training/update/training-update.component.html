@@ -1,0 +1,194 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="acde-training-heading" data-cy="TrainingCreateUpdateHeading" acdeTranslate="acdeApp.training.home.createOrEditLabel">
+        Crear o editar Training
+      </h2>
+
+      <div>
+        <acde-alert-error></acde-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" acdeTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.training.trainigNumber" for="field_trainigNumber">Trainig Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="trainigNumber"
+            id="field_trainigNumber"
+            data-cy="trainigNumber"
+            formControlName="trainigNumber"
+          />
+          <div
+            *ngIf="
+              editForm.get('trainigNumber')!.invalid && (editForm.get('trainigNumber')!.dirty || editForm.get('trainigNumber')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('trainigNumber')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('trainigNumber')?.errors?.maxlength"
+              acdeTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 100 }"
+            >
+              Este campo no puede superar más de 100 caracteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.training.startDate" for="field_startDate">Start Date</label>
+          <div class="input-group">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="text"
+              class="form-control"
+              name="startDate"
+              ngbDatepicker
+              #startDateDp="ngbDatepicker"
+              formControlName="startDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('startDate')!.invalid && (editForm.get('startDate')!.dirty || editForm.get('startDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('startDate')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.training.endDate" for="field_endDate">End Date</label>
+          <div class="input-group">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="text"
+              class="form-control"
+              name="endDate"
+              ngbDatepicker
+              #endDateDp="ngbDatepicker"
+              formControlName="endDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('endDate')!.invalid && (editForm.get('endDate')!.dirty || editForm.get('endDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('endDate')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.training.trainingName" for="field_trainingName">Training Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="trainingName"
+            id="field_trainingName"
+            data-cy="trainingName"
+            formControlName="trainingName"
+          />
+          <div
+            *ngIf="editForm.get('trainingName')!.invalid && (editForm.get('trainingName')!.dirty || editForm.get('trainingName')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('trainingName')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('trainingName')?.errors?.maxlength"
+              acdeTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 100 }"
+            >
+              Este campo no puede superar más de 100 caracteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.training.statusName" for="field_statusName">Status Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="statusName"
+            id="field_statusName"
+            data-cy="statusName"
+            formControlName="statusName"
+          />
+          <div *ngIf="editForm.get('statusName')!.invalid && (editForm.get('statusName')!.dirty || editForm.get('statusName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('statusName')?.errors?.required"
+              acdeTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('statusName')?.errors?.maxlength"
+              acdeTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 40 }"
+            >
+              Este campo no puede superar más de 40 caracteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" acdeTranslate="acdeApp.training.evaluator" for="field_evaluator">Evaluator</label>
+          <select
+            class="form-control"
+            id="field_evaluator"
+            data-cy="evaluator"
+            name="evaluator"
+            formControlName="evaluator"
+            [compareWith]="compareEvaluator"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="evaluatorOption" *ngFor="let evaluatorOption of evaluatorsSharedCollection">{{ evaluatorOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span acdeTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span acdeTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

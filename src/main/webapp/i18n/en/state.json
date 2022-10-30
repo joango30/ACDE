@@ -1,0 +1,9 @@
+{
+  "acdeApp": {
+    "State": {
+      "null": "",
+      "TRAINED": "Capacitado",
+      "NOTTRAINED": "Nocapacitado"
+    }
+  }
+}

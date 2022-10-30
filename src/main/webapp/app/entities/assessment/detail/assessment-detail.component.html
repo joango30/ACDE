@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="assessment">
+      <h2 data-cy="assessmentDetailsHeading"><span acdeTranslate="acdeApp.assessment.detail.title">Assessment</span></h2>
+
+      <hr />
+
+      <acde-alert-error></acde-alert-error>
+
+      <acde-alert></acde-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span acdeTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ assessment.id }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.assessment.assessmentNumber">Assessment Number</span></dt>
+        <dd>
+          <span>{{ assessment.assessmentNumber }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.assessment.assessmentType">Assessment Type</span></dt>
+        <dd>
+          <span>{{ assessment.assessmentType }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.assessment.dateassessment">Dateassessment</span></dt>
+        <dd>
+          <span>{{ assessment.dateassessment | formatMediumDate }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.assessment.assessmentTotal">Assessment Total</span></dt>
+        <dd>
+          <span>{{ assessment.assessmentTotal }}</span>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.assessment.evaluator">Evaluator</span></dt>
+        <dd>
+          <div *ngIf="assessment.evaluator">
+            <a [routerLink]="['/evaluator', assessment.evaluator.id, 'view']">{{ assessment.evaluator.id }}</a>
+          </div>
+        </dd>
+        <dt><span acdeTranslate="acdeApp.assessment.employee">Employee</span></dt>
+        <dd>
+          <div *ngIf="assessment.employee">
+            <a [routerLink]="['/employee', assessment.employee.id, 'view']">{{ assessment.employee.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span acdeTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/assessment', assessment.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span acdeTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>
